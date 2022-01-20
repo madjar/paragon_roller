@@ -2,9 +2,7 @@ import Config
 
 # Configure your database
 config :paragon_roller, ParagonRoller.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
+  socket_dir: System.get_env("PGHOST"),
   database: "paragon_roller_dev",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
