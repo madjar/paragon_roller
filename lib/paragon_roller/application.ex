@@ -15,9 +15,10 @@ defmodule ParagonRoller.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: ParagonRoller.PubSub},
       # Start the Endpoint (http/https)
-      ParagonRollerWeb.Endpoint
+      ParagonRollerWeb.Endpoint,
       # Start a worker by calling: ParagonRoller.Worker.start_link(arg)
       # {ParagonRoller.Worker, arg}
+      ParagonRollerWeb.Presence
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

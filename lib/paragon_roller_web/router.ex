@@ -18,6 +18,7 @@ defmodule ParagonRollerWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    live "/rooms/:id", RoomLive
   end
 
   # Other scopes may use custom stacks.

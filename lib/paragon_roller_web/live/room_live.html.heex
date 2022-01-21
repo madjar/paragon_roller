@@ -1,0 +1,30 @@
+
+<%= if @player_changeset do %>
+    <div id="modal" class="phx-modal fade-in" phx-remove={hide_modal()}>
+      <div
+        id="modal-content"
+        class="phx-modal-content fade-in-scale"
+      >
+            <.form
+            let={f}
+            for={@player_changeset}
+            as="player"
+            id="player-form"
+            phx-change="validate"
+            phx-submit="save">
+
+            <%= label f, :name, "Player name" %>
+            <%= text_input f, :name, autofocus: "" %>
+            <%= error_tag f, :name %>
+
+            <div>
+            <%= submit "Save", phx_disable_with: "Saving..." %>
+            </div>
+        </.form>
+
+      </div>
+    </div>
+<% end %>
+
+<p>You are <%= @player_name %></p>
+<code><%= inspect(@connected_players) %></code>
