@@ -33,3 +33,6 @@ npm-debug.log
 /assets/node_modules/
 
 /.direnv/
+
+# Compiled parser and lexer
+*.erl
