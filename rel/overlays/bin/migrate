@@ -1,0 +1,3 @@
+#!/bin/sh
+cd -P -- "$(dirname -- "$0")"
+exec ./paragon_roller eval ParagonRoller.Release.migrate

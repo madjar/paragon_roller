@@ -1,0 +1,1 @@
+call "%~dp0\paragon_roller" eval ParagonRoller.Release.migrate
