@@ -7,6 +7,8 @@ defmodule ParagonRoller.Application do
 
   @impl true
   def start(_type, _args) do
+    topologies = Application.get_env(:libcluster, :topologies) || []
+
     children = [
       # Start the Ecto repository
       ParagonRoller.Repo,
@@ -18,7 +20,9 @@ defmodule ParagonRoller.Application do
       ParagonRollerWeb.Endpoint,
       # Start a worker by calling: ParagonRoller.Worker.start_link(arg)
       # {ParagonRoller.Worker, arg}
-      ParagonRollerWeb.Presence
+      ParagonRollerWeb.Presence,
+      # setup for clustering
+      {Cluster.Supervisor, [topologies, [name: ParagonRoller.ClusterSupervisor]]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
