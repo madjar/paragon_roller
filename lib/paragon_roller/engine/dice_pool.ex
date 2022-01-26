@@ -55,4 +55,15 @@ defmodule ParagonRoller.Engine.DicePool do
         {:error, {:token_parsing_failed, reason}}
     end
   end
+
+  def roll(%DicePool{dice: dice, flat: flat}) do
+    flattened_dice =
+      Enum.flat_map(dice, fn {face, count} ->
+        List.duplicate(face, count)
+      end)
+
+    from_dice = Enum.map(flattened_dice, fn face -> {:rand.uniform(face), face} end)
+
+    from_dice ++ [{flat, 1}]
+  end
 end
