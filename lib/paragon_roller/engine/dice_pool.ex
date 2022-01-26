@@ -11,6 +11,15 @@ defmodule ParagonRoller.Engine.DicePool do
 
   @known_dice [4, 6, 8, 10, 12, 20]
 
+  @doc """
+  Parse a string representation of a dice pool.
+
+  ## Examples
+
+        iex> ParagonRoller.Engine.DicePool.parse("1d6, 1d6, 2d12, 5")
+        {:ok, %ParagonRoller.Engine.DicePool{dice: %{6 => 2, 12 => 2}, flat: 5}}
+
+  """
   @spec parse(binary) ::
           {:error, {:token_parsing_failed, any} | {:tokenizing_failed, any}}
           | {:ok, ParagonRoller.Engine.DicePool.t()}
