@@ -18,6 +18,7 @@ defmodule ParagonRollerWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    live "/dice-roller/", DiceRollerLive
     live "/rooms/:id", RoomLive
   end
 

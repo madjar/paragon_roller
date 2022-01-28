@@ -2,3 +2,6 @@
   <h1>Paragon Dice Roller</h1>
   <p>TODO, here a nice way to create a room</p>
 </section>
+<p><%= link("Dice roller", to: Routes.live_path(@conn, ParagonRollerWeb.DiceRollerLive)) %></p>
+<p><%= link("Test room", to: Routes.live_path(@conn, ParagonRollerWeb.RoomLive, "test-room")) %></p>
+
