@@ -78,4 +78,17 @@ defmodule ParagonRoller.Engine.DicePool do
     |> Enum.map(fn face -> {:rand.uniform(face), face} end)
     |> Enum.sort(:desc)
   end
+
+  @doc """
+  Render a dice pool to a nice string
+
+  iex> render(%DicePool{dice: %{6 => 2, 12 => 2}})
+  "2d6, 2d12"
+  """
+  @spec render(DicePool.t()) :: String.t()
+  def render(%DicePool{dice: dice, flat: nil}) do
+    dice
+    |> Stream.map(fn {face, count} -> "#{count}d#{face}" end)
+    |> Enum.join(", ")
+  end
 end
