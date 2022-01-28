@@ -9,7 +9,14 @@ defmodule ParagonRoller.Engine.DicePool do
           flat: integer() | nil
         }
 
+  @type dice_roll :: [{integer(), integer()}]
+
   @known_dice [4, 6, 8, 10, 12, 20]
+
+  @spec new :: DicePool.t()
+  def new do
+    %DicePool{dice: %{}}
+  end
 
   @doc """
   Parse a string representation of a dice pool.
@@ -17,7 +24,7 @@ defmodule ParagonRoller.Engine.DicePool do
   ## Examples
 
         iex> ParagonRoller.Engine.DicePool.parse("1d6, 1d6, 2d12")
-        {:ok, %ParagonRoller.Engine.DicePool{dice: %{6 => 2, 12 => 2}, flat: 5}}
+        {:ok, %ParagonRoller.Engine.DicePool{dice: %{6 => 2, 12 => 2}, flat: nil}}
 
   """
   @spec parse(binary) ::
@@ -60,12 +67,15 @@ defmodule ParagonRoller.Engine.DicePool do
     end
   end
 
+  @spec roll(DicePool.t()) :: dice_roll()
   def roll(%DicePool{dice: dice}) do
     flattened_dice =
       Enum.flat_map(dice, fn {face, count} ->
         List.duplicate(face, count)
       end)
 
-    Enum.map(flattened_dice, fn face -> {:rand.uniform(face), face} end)
+    flattened_dice
+    |> Enum.map(fn face -> {:rand.uniform(face), face} end)
+    |> Enum.sort(:desc)
   end
 end
