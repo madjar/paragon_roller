@@ -2,9 +2,15 @@ defmodule ParagonRollerWeb.DiceRollerLive do
   use ParagonRollerWeb, :live_view
   alias ParagonRoller.Engine.DicePool
 
+  import ParagonRollerWeb.DiceHelpers
+
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, dice_pool: DicePool.new(), result: "")}
+    {:ok,
+     assign(socket,
+       dice_pool: %DicePool{dice: %{6 => 1, 10 => 2}},
+       result: nil
+     )}
   end
 
   def dice_pool(assigns) do
@@ -29,8 +35,6 @@ defmodule ParagonRollerWeb.DiceRollerLive do
     result =
       socket.assigns.dice_pool
       |> DicePool.roll()
-      |> Stream.map(fn {result, dice} -> "#{result}/#{dice}" end)
-      |> Enum.join(", ")
 
     {:noreply, assign(socket, :result, result)}
   end
