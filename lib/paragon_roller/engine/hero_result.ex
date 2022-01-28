@@ -21,10 +21,10 @@ defmodule ParagonRoller.Engine.HeroResult do
   @doc """
   Count the dice for a hero
 
-  iex> ParagonRoller.Engine.HeroResult.solve_roll([{5, 6}, {3, 8}, {1, 10}])
+  iex> solve_roll([{5, 6}, {3, 8}, {1, 10}])
   8
 
-  iex> ParagonRoller.Engine.HeroResult.solve_roll([{5, 6}, {3, 8}, {2, 4}])
+  iex> solve_roll([{5, 6}, {3, 8}, {2, 4}])
   10
   """
   def solve_roll(dice) do

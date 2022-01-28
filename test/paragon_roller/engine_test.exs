@@ -1,8 +1,10 @@
 defmodule ParagonRoller.EngineTest do
   use ExUnit.Case, async: true
-  doctest ParagonRoller.Engine.DicePool
+
+  alias ParagonRoller.Engine.{DicePool}
+  doctest ParagonRoller.Engine.DicePool, import: true
   doctest ParagonRoller.Engine.HeroConfig
-  doctest ParagonRoller.Engine.HeroResult
+  doctest ParagonRoller.Engine.HeroResult, import: true
   doctest ParagonRoller.Engine.ContestConfig
   doctest ParagonRoller.Engine.ContestTarget
 end

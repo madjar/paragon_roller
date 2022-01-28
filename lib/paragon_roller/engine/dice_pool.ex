@@ -23,8 +23,8 @@ defmodule ParagonRoller.Engine.DicePool do
 
   ## Examples
 
-        iex> ParagonRoller.Engine.DicePool.parse("1d6, 1d6, 2d12")
-        {:ok, %ParagonRoller.Engine.DicePool{dice: %{6 => 2, 12 => 2}, flat: nil}}
+        iex> parse("1d6, 1d6, 2d12")
+        {:ok, %DicePool{dice: %{6 => 2, 12 => 2}, flat: nil}}
 
   """
   @spec parse(binary) ::
