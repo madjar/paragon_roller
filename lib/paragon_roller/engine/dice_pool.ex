@@ -16,7 +16,7 @@ defmodule ParagonRoller.Engine.DicePool do
 
   ## Examples
 
-        iex> ParagonRoller.Engine.DicePool.parse("1d6, 1d6, 2d12, 5")
+        iex> ParagonRoller.Engine.DicePool.parse("1d6, 1d6, 2d12")
         {:ok, %ParagonRoller.Engine.DicePool{dice: %{6 => 2, 12 => 2}, flat: 5}}
 
   """
@@ -25,19 +25,23 @@ defmodule ParagonRoller.Engine.DicePool do
           | {:ok, ParagonRoller.Engine.DicePool.t()}
   def parse(str) do
     with {:ok, list} <- parse_raw(str) do
-      {flat, dice_map} =
+      dice_map =
         list
         |> Enum.reduce(%{}, fn {count, dice}, acc ->
           Map.update(acc, dice, count, &(&1 + count))
         end)
-        |> Map.pop(1)
+
+      # The parser treats flat modifiers (+4) as 1-faced dice, we split it here
+      # Flat modifiers are however disabled in the parser
+      #        {flat, dice_map} = dice_map |> Map.pop(1)
+      flat = nil
 
       {validated_dice_map, bad_map} = Map.split(dice_map, @known_dice)
 
       if bad_map == %{} do
         {:ok, %DicePool{dice: validated_dice_map, flat: flat}}
       else
-        {:error, :unknown_dice_size, bad_map |> Map.keys() |> Enum.map(&Integer.to_string/1)}
+        {:error, {:unknown_dice_size, bad_map |> Map.keys() |> Enum.map(&Integer.to_string/1)}}
       end
     end
   end
@@ -56,14 +60,12 @@ defmodule ParagonRoller.Engine.DicePool do
     end
   end
 
-  def roll(%DicePool{dice: dice, flat: flat}) do
+  def roll(%DicePool{dice: dice}) do
     flattened_dice =
       Enum.flat_map(dice, fn {face, count} ->
         List.duplicate(face, count)
       end)
 
-    from_dice = Enum.map(flattened_dice, fn face -> {:rand.uniform(face), face} end)
-
-    from_dice ++ [{flat, 1}]
+    Enum.map(flattened_dice, fn face -> {:rand.uniform(face), face} end)
   end
 end
