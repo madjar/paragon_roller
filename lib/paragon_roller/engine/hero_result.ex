@@ -29,8 +29,16 @@ defmodule ParagonRoller.Engine.HeroResult do
   """
   def solve_roll(dice) do
     {bonus_dice, non_bonus_dice} = Enum.split_with(dice, fn {_, face} -> face == 4 end)
-    base = non_bonus_dice |> Stream.take(2) |> Stream.map(&elem(&1, 0)) |> Enum.sum()
-    bonus = bonus_dice |> Stream.take(1) |> Stream.map(&elem(&1, 0)) |> Enum.sum()
+
+    base =
+      non_bonus_dice
+      |> Enum.sort(:desc)
+      |> Stream.take(2)
+      |> Stream.map(&elem(&1, 0))
+      |> Enum.sum()
+
+    bonus =
+      bonus_dice |> Enum.sort(:desc) |> Stream.take(1) |> Stream.map(&elem(&1, 0)) |> Enum.sum()
 
     base + bonus
   end

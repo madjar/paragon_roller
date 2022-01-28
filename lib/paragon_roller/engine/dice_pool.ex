@@ -76,7 +76,6 @@ defmodule ParagonRoller.Engine.DicePool do
 
     flattened_dice
     |> Enum.map(fn face -> {:rand.uniform(face), face} end)
-    |> Enum.sort(:desc)
   end
 
   @doc """

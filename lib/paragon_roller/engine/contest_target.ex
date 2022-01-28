@@ -14,7 +14,7 @@ defmodule ParagonRoller.Engine.ContestTarget do
   def roll(%DicePool{flat: flat} = pool) when is_integer(flat) do
     # TODO validation that the pool is big enough to be rolled
     dice = DicePool.roll(pool)
-    result = elem(List.first(dice), 0) + flat
+    result = elem(Enum.max(dice), 0) + flat
     {:ok, %ContestTarget{dice: dice, flat: flat, result: result}}
   end
 end
