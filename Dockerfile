@@ -55,6 +55,7 @@ RUN mix assets.deploy
 
 # Compile the release
 COPY lib lib
+COPY src src
 
 RUN mix compile
 
