@@ -9,16 +9,16 @@ defmodule ParagonRollerWeb.DiceRollerLive do
     {:ok,
      assign(socket,
        dice_pool: %DicePool{dice: %{6 => 1, 10 => 2}},
-       result: nil
+       # TODO remove
+       result: [{1, 6}, {2, 12}]
      )}
   end
 
-  def dice_pool(assigns) do
+  def dice_pool_input(assigns) do
     ~H"""
     <form phx-change="dice_change", phx-submit="roll">
     <%= text_input :roll, :dice, value: DicePool.render(@dice_pool) %>
     </form>
-    <p><%= DicePool.render(@dice_pool) %></p>
     """
   end
 
