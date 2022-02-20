@@ -9,6 +9,12 @@ defmodule ParagonRollerWeb.DiceHelpers do
   end
 
   def roll_result(assigns) do
+    ~H"""
+    <p><%= render_result(@dice) %></p>
+    """
+  end
+
+  def fancy_roll_result(assigns) do
     # TODO use the proper dice
     # TODO make the icon nice
     ~H"""
