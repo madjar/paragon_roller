@@ -22,7 +22,16 @@ defmodule ParagonRoller.Application do
       # {ParagonRoller.Worker, arg}
       ParagonRollerWeb.Presence,
       # setup for clustering
-      {Cluster.Supervisor, [topologies, [name: ParagonRoller.ClusterSupervisor]]}
+      {Cluster.Supervisor, [topologies, [name: ParagonRoller.ClusterSupervisor]]},
+      # Distributed rooms
+      {Horde.Registry, [name: ParagonRoller.GameRegistry, keys: :unique, members: :auto]},
+      {Horde.DynamicSupervisor,
+       [
+         name: ParagonRoller.DistributedSupervisor,
+         shutdown: 1000,
+         strategy: :one_for_one,
+         members: :auto
+       ]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
