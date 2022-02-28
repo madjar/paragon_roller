@@ -51,8 +51,7 @@ defmodule ParagonRoller.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:libcluster, "~> 3.3"},
       {:horde, "~> 0.8"},
-      {:heex_formatter, github: "feliperenan/heex_formatter", only: :dev}
-
+      {:heex_formatter, github: "feliperenan/heex_formatter", only: :dev, tag: "0.1"}
     ]
   end
 
