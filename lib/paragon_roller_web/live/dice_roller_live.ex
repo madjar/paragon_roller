@@ -14,14 +14,6 @@ defmodule ParagonRollerWeb.DiceRollerLive do
      )}
   end
 
-  def dice_pool_input(assigns) do
-    ~H"""
-    <form phx-change="dice_change", phx-submit="roll">
-    <%= text_input :roll, :dice, value: DicePool.render(@dice_pool) %>
-    </form>
-    """
-  end
-
   @impl true
 
   def handle_event("dice_change", %{"roll" => %{"dice" => value}}, socket) do

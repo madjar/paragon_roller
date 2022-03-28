@@ -1,10 +1,21 @@
 defmodule ParagonRollerWeb.DiceHelpers do
   # import Phoenix.LiveView
   import Phoenix.LiveView.Helpers
+  use Phoenix.HTML
+
+  alias ParagonRoller.Engine.DicePool
 
   def dice_pool(assigns) do
     ~H"""
     <p><%= ParagonRoller.Engine.DicePool.render(@dice_pool) %></p>
+    """
+  end
+
+  def dice_pool_input(assigns) do
+    ~H"""
+    <form phx-change={@change}, phx-submit={@submit}>
+    <%= text_input :roll, :dice, value: DicePool.render(@dice_pool) %>
+    </form>
     """
   end
 

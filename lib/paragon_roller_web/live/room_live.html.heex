@@ -28,3 +28,11 @@
 
 <p>You are <%= @player_name %></p>
 <code><%= inspect(@connected_players) %></code>
+
+<h1> Contest </h1>
+
+<div><%= @state.contest_config.description %></div>
+<.dice_pool_input dice_pool={@state.contest_config.strife_dice_pool} change="dice_change" submit="dice_change"/>
+<div><.dice_pool dice_pool={@state.contest_config.strife_dice_pool} /></div>
+
+<pre><code><%= inspect(@state, pretty: true) %></code></pre>
